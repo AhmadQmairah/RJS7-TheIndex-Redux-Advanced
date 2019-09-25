@@ -8,47 +8,44 @@ import Loading from "./Loading";
 import AuthorsList from "./AuthorsList";
 import AuthorDetail from "./AuthorDetail";
 import BookList from "./BookList";
+import { connect } from "react-redux";
 
+//actions
+import { fetchAllAuthors } from "./redux/actions";
 const instance = axios.create({
   baseURL: "https://the-index-api.herokuapp.com"
 });
 
 class App extends Component {
-  state = {
-    authors: [],
-    books: [],
-    loading: true
-  };
+  state = {};
 
-  fetchAllAuthors = async () => {
-    const res = await instance.get("/api/authors/");
-    return res.data;
-  };
+  // fetchAllBooks = async () => {
+  //   const res = await instance.get("/api/books/");
+  //   return res.data;
+  // };
 
-  fetchAllBooks = async () => {
-    const res = await instance.get("/api/books/");
-    return res.data;
-  };
+  // async componentDidMount() {
+  //   try {
+  //     const authorsReq = this.fetchAllAuthors();
+  //     const booksReq = this.fetchAllBooks();
+  //     const authors = await authorsReq;
+  //     const books = await booksReq;
 
-  async componentDidMount() {
-    try {
-      const authorsReq = this.fetchAllAuthors();
-      const booksReq = this.fetchAllBooks();
-      const authors = await authorsReq;
-      const books = await booksReq;
+  //     this.setState({
+  //       authors: authors,
+  //       books: books,
+  //       loading: false
+  //     });
+  //   } catch (err) {
+  //     console.error(err);
+  //   }
 
-      this.setState({
-        authors: authors,
-        books: books,
-        loading: false
-      });
-    } catch (err) {
-      console.error(err);
-    }
+  componentDidMount() {
+    this.props.getAuthors();
   }
 
   getView = () => {
-    if (this.state.loading) {
+    if (this.props.loading) {
       return <Loading />;
     } else {
       return (
@@ -83,5 +80,19 @@ class App extends Component {
     );
   }
 }
+const mapDispatchToProps = dispatch => {
+  return {
+    getAuthors: () => dispatch(fetchAllAuthors())
+  };
+};
 
-export default App;
+const mapStateToProps = state => {
+  return {
+    loading: state.authorState.loading
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(App);
