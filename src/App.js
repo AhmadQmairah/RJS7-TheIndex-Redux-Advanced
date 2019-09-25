@@ -40,13 +40,13 @@ class App extends Component {
   //     console.error(err);
   //   }
 
-  componentDidMount() {
+  async componentDidMount() {
     this.props.getAuthors();
     this.props.getBooks();
   }
 
   getView = () => {
-    if (this.props.loading) {
+    if (this.props.loading1 || this.props.loading2) {
       return <Loading />;
     } else {
       return (
@@ -90,7 +90,8 @@ const mapDispatchToProps = dispatch => {
 
 const mapStateToProps = state => {
   return {
-    loading: state.authorState.loading
+    loading1: state.authorState.loading,
+    loading2: state.bookState.loading
   };
 };
 

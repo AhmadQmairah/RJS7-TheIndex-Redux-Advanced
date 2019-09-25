@@ -9,9 +9,6 @@ class BookList extends Component {
     filteredBooks: this.props.books
   };
 
-  componentDidUpdate() {
-    console.log(this.props.books);
-  }
   filterBooks = query => {
     query = query.toLowerCase();
     let filteredBooks = this.props.books.filter(book =>
@@ -43,6 +40,7 @@ class BookList extends Component {
 }
 
 const mapStateToProps = state => {
+  console.log();
   return {
     books: state.bookState.books
   };
