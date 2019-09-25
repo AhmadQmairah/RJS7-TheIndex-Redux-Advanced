@@ -11,7 +11,7 @@ import BookList from "./BookList";
 import { connect } from "react-redux";
 
 //actions
-import { fetchAllAuthors } from "./redux/actions";
+import { fetchAllAuthors, fetchAllBooks } from "./redux/actions";
 const instance = axios.create({
   baseURL: "https://the-index-api.herokuapp.com"
 });
@@ -42,6 +42,7 @@ class App extends Component {
 
   componentDidMount() {
     this.props.getAuthors();
+    this.props.getBooks();
   }
 
   getView = () => {
@@ -82,7 +83,8 @@ class App extends Component {
 }
 const mapDispatchToProps = dispatch => {
   return {
-    getAuthors: () => dispatch(fetchAllAuthors())
+    getAuthors: () => dispatch(fetchAllAuthors()),
+    getBooks: () => dispatch(fetchAllBooks())
   };
 };
 
