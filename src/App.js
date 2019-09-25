@@ -17,8 +17,6 @@ const instance = axios.create({
 });
 
 class App extends Component {
-  state = {};
-
   // fetchAllBooks = async () => {
   //   const res = await instance.get("/api/books/");
   //   return res.data;
@@ -53,16 +51,8 @@ class App extends Component {
         <Switch>
           <Redirect exact from="/" to="/authors" />
           <Route path="/authors/:authorID" component={AuthorDetail} />
-          <Route
-            path="/authors/"
-            render={props => (
-              <AuthorsList {...props} authors={this.state.authors} />
-            )}
-          />
-          <Route
-            path="/books/:bookColor?"
-            render={props => <BookList {...props} books={this.state.books} />}
-          />
+          <Route path="/authors/" component={AuthorsList} />
+          <Route path="/books/:bookColor?" component={BookList} />} />
         </Switch>
       );
     }
