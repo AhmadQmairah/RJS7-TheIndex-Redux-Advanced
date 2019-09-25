@@ -27,7 +27,7 @@ class AuthorsList extends Component {
     return (
       <div className="authors">
         <h3>Authors</h3>
-        <SearchBar changeHandler={this.filterAuthors} />
+        <SearchBar onChange={this.filterAuthors} />
         <div className="row">{authorCards}</div>
       </div>
     );
